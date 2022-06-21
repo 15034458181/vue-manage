@@ -10,6 +10,7 @@ Vue.use(Container)
 Vue.use(Main)
 Vue.use(Header)
 Vue.use(Aside)
+
 new Vue({
   router,
   render: h => h(App),
