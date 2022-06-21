@@ -10,7 +10,7 @@ Vue.use(Container)
 Vue.use(Main)
 Vue.use(Header)
 Vue.use(Aside)
-
+我现在的状态是1
 new Vue({
   router,
   render: h => h(App),
