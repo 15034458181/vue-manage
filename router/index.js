@@ -6,15 +6,29 @@ Vue.use(VueRouter)
 const routes = [
     {
         path:'/',
-        name:'MyHome',
+        name:'Main',
         // 引入页面
-        component:()=> import('../views/MyHome.vue')
+        component:()=> import('../views/Main.vue'),
+        
+        // 载入各个界面路由
+        children:[
+            {
+                path:'/home',
+                name:'home',
+                component:()=> import('../views/home')
+            },
+            {
+                path:"/user",
+                name:"user",
+                component:()=> import('../views/user')
+            },
+            {
+                path:"/mall",
+                name:"mall",
+                component:()=> import('../views/mall')
+            }
+        ]
     },
-    {
-        path:"/user",
-        name:"MyUser",
-        component:()=> import('../views/MyUser.vue')
-    }
     
 ]
 
