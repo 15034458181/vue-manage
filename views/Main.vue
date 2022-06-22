@@ -8,7 +8,9 @@
 
     <el-container >
       <!-- 这狗日的是头部栏 -->
-      <el-header>Header</el-header>
+      <el-header>
+        <Header/>
+      </el-header>
       
       <!-- 这是主要区域 -->
       <el-main>
@@ -22,6 +24,7 @@
 
 <script>
 import CommonAside from "../src/components/CommonAside.vue"
+import Header from "../src/components/Header.vue"
 export default {
     name:'MyHome',
     data() {
@@ -30,7 +33,8 @@ export default {
         }
     },
     components:{
-      CommonAside
+      CommonAside,
+      Header
     }
 }
 </script>
@@ -38,6 +42,7 @@ export default {
 <style lang="less" scoped>
   .el-header{
     background-color: #333;
+    padding: 0;
   }
   .el-main{
     padding-top: 0;
