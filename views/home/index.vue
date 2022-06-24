@@ -1,7 +1,8 @@
 <template>
   <el-row class="home" :gutter="20">
+    <!-- 左侧区域 -->
     <el-col :span="8" style="margin-top:20px">
-
+      <!-- 用户id卡 -->
       <el-card shadow="hover">
         <div class="homeuser">
           <div class="userup">
@@ -18,16 +19,26 @@
           </div>
         </div>
       </el-card>
-
+      <!-- 商品购买详情 -->
       <el-card style="margin-top:20px; hight:460px">
         <el-table :data="tableData">
-
           <el-table-column v-for="(val, key) in tableline" :key="key" :prop="key" :label="val"><!-- 遍历的是一个对象，所以key代表的是键名 -->
           </el-table-column>
-          
         </el-table>
-
       </el-card>
+    </el-col>
+    <!-- 右侧区域 -->
+    <el-col :span="16" style="margin-top:20px;">
+      <div class="one">
+        <el-card v-for="item in countData" :key="item.name" shadow="hover" body-style="{display:flex,padding:0}">
+          <i class="icon" :class="`el-icon-${item.icon}`" :style="{background:item.color}"></i>
+          <div class="detail">
+            <p class="peice">￥{{item.value}}</p>
+            <p class="txt">{{item.name}}</p>
+          </div>
+        </el-card>
+        
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -80,7 +91,45 @@ export default {
               todayBuy:"今日购买",
               monthBuy:"本月购买",
               totalBuy:"总购买"
-            }
+            },
+            countData:[
+              {
+                name:"今日支付订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              },
+              {
+                name:"今日收藏订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              },
+              {
+                name:"今日未支付订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              },
+              {
+                name:"本月支付订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              },
+              {
+                name:"本月收藏订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              },
+              {
+                name:"本月未支付订单",
+                value:1234,
+                icon:"success",
+                color:"#2ec7c9"
+              }
+            ],
         }
     },
 }
@@ -133,4 +182,39 @@ export default {
   margin: 5px 0 5px 0;
   border-bottom: 1px solid rgb(199, 196, 196);
 }
+.one{
+  display: flex;
+  width: auto;
+  height: 400px;
+  flex-wrap:wrap;
+  div{
+    position: relative;
+    width: 31%;
+    height: 40%;
+    margin: 10px;
+    .icon{
+      position: absolute;
+      top: 45%;
+      left: 50px;
+      transform:scale(5,5)
+    }
+    .detail{
+      float: right;
+      margin: 10px;
+      width: 200px;
+      .peice{
+        font-size: 25px;
+        text-align: center;
+        
+      }
+      .txt{
+        text-align: center;
+      }
+
+    }
+    
+  }
+}
+
+
 </style>
