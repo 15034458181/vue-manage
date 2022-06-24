@@ -37,8 +37,20 @@
             <p class="txt">{{item.name}}</p>
           </div>
         </el-card>
-        
       </div>
+
+      <div class="two">
+        <div class="ecr">
+          <el-card style="height:280px"></el-card>
+        </div>
+
+        <div class="graph">
+          <el-card style="height:260px"></el-card>
+          <el-card style="height:260px"></el-card>
+        </div>
+
+      </div>
+
     </el-col>
   </el-row>
 </template>
@@ -132,6 +144,16 @@ export default {
             ],
         }
     },
+    mounted() {
+      // axios使用实例，向服务器发出请求
+      this.$http.get('/uesr?ID=12345')
+      .then(function(response){
+        console.log(response);
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    },
 }
 </script>
 
@@ -185,29 +207,36 @@ export default {
 .one{
   display: flex;
   width: auto;
-  height: 400px;
+  height: 200px;
   flex-wrap:wrap;
+  margin-bottom: 10px;
+  overflow: hidden;
   div{
     position: relative;
     width: 31%;
     height: 40%;
     margin: 10px;
+    // overflow: hidden;
     .icon{
       position: absolute;
-      top: 45%;
-      left: 50px;
-      transform:scale(5,5)
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
     }
     .detail{
       float: right;
-      margin: 10px;
-      width: 200px;
+      width: 150px;
+      top: -10px;
+      // overflow: hidden;
       .peice{
-        font-size: 25px;
+        margin: 0;
         text-align: center;
-        
+        font-size: 20px;
+        // overflow: hidden;
       }
       .txt{
+        margin: 0;
         text-align: center;
       }
 
@@ -215,6 +244,27 @@ export default {
     
   }
 }
+.two{
+  display: flex;
+  flex-wrap:wrap;
+  .ecr{
+    width: 100%;
+    border: 1px red solid;
+  }
+  .graph{
+    display: flex;
+    width: 100%;
 
+    :nth-child(1){
+      width: 49%;
+      border: 1px skyblue solid;
+    }
+    :nth-child(2){
+      width: 49%;
+      margin-left: 20px;
+      border: 1px green solid;
+    }
+  }
+}
 
 </style>
