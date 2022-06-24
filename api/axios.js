@@ -52,7 +52,6 @@ class HttpRequest {
         return instance
     }
 }
-
 // 导出这个实例包，我怀疑只有new了之后才能使用
 export default new HttpRequest(baseUrl)
 
