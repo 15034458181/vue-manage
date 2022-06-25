@@ -5,6 +5,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from '../router/index'
 // 引入使用axios
 import http from 'axios'
+// 引入mock
+import "../api/mock.js"
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 

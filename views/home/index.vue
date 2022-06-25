@@ -41,12 +41,16 @@
 
       <div class="two">
         <div class="ecr">
-          <el-card style="height:280px"></el-card>
+          <el-card style="height:280px">
+            <div style="height:280px" ref="echarts"></div>
+          </el-card>
         </div>
 
         <div class="graph">
-          <el-card style="height:260px"></el-card>
-          <el-card style="height:260px"></el-card>
+          <el-card style="height:260px" class="userecharts">
+            <div style="height:240px" ref="userecharts"></div>
+          </el-card>
+          <el-card style="height:260px" class="userecharts2"></el-card>
         </div>
 
       </div>
@@ -56,47 +60,52 @@
 </template>
 
 <script>
+// 引入我们mock生成的假数据
+import { getData } from '../../api/data.js'
+
+// 引入echarts
+import *as echarts from "../../../node_modules/echarts/dist/echarts.js"
 export default {
     name:'MyUser',
     data() {
         return {
             tableData:[
-              {
-                name:"oppo",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
-              {
-                name:"vivo",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
-              {
-                name:"小米",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
-              {
-                name:"三星",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
-              {
-                name:"华为",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
-              {
-                name:"苹果",
-                todayBuy:100,
-                monthBuy:500,
-                totalBuy:800
-              },
+              // {
+              //   name:"oppo",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
+              // {
+              //   name:"vivo",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
+              // {
+              //   name:"小米",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
+              // {
+              //   name:"三星",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
+              // {
+              //   name:"华为",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
+              // {
+              //   name:"苹果",
+              //   todayBuy:100,
+              //   monthBuy:500,
+              //   totalBuy:800
+              // },
             ],
             tableline:{
               name:'课程',
@@ -145,14 +154,119 @@ export default {
         }
     },
     mounted() {
-      // axios使用实例，向服务器发出请求
-      this.$http.get('/uesr?ID=12345')
-      .then(function(response){
-        console.log(response);
+      // // axios使用实例，向服务器发出请求
+      // this.$http.get('/uesr?ID=12345')
+      // .then(function(response){
+      //   console.log(response);
+      // })
+      // .catch(function(error){
+      //   console.log(error);
+      // })
+      getData().then(res => {
+        const {code,data} = res.data
+        if(code === 20000){
+          // 判断状态，如果成功，把数据送入我们的vue组件的数据中
+          this.tableData = data.tableData
+
+          // 格式化echarts可视化所需要的数据
+          const order = data.orderData
+          const KeyArray = Object.keys(order.data[0])
+          const series = []
+
+          // 遍历什么玩意，我这个看不懂，反正是把最重要的series给格式化好了
+          KeyArray.forEach(key => {
+            series.push({
+              name:key,
+              data:order.data.map(item => item[key]),
+              type:"line"
+            })
+          })
+
+          // 定义配置数据
+          const option = {
+            // x轴的数据
+            xAxis:{
+              data:order.date
+            },
+            // y轴的数据
+            yAxis:{
+            },
+            // 折线类别提示
+            legend:{
+              data:KeyArray
+            },
+            // 所需数据
+            series:series
+          }
+          // 获取dom节点
+          const E = echarts.init(this.$refs.echarts);
+          // 拿到节点后，传入配置进行绘图
+          E.setOption(option);
+
+
+          // 这个地方画用户图
+
+          // 这是用户图的数据图配置
+          const userOption = {
+            legend:{
+              // 图例文字的颜色
+              textStyle:{
+                color:"#333"
+              }
+            },
+            grid:{
+              left:"20%"
+            },
+            tooltip:{
+              trigger:"axis"
+            },
+            xAxis:{
+              type:"category",
+              data:data.userData.map(item => item.date),
+              axisLine:{
+                lineStyle:{
+                  color:"#17b3a3"
+                }
+              },
+              axisLabel:{
+                interval:0,
+                color:"#333"
+              },
+            },
+            yAxis:[
+              {
+                type:"value",
+                axisLine:{
+                  lineStyle:{
+                    color:"#17b3a3"
+                  }
+                }
+              }
+            ],
+            color:["#2ec7c9","#b6a2de"],
+            series:[
+              {
+                name:"新增用户",
+                data:data.userData.map(item => item.new)
+              },
+              {
+                name:"活跃用户",
+                data:data.userData.map(item => item.active)
+              }
+            ]
+          }
+
+          // 获取dom元素
+          const U = echarts.init(this.$refs.userecharts)
+          // 拿到节点后，传入配置进行绘图
+          U.setOption(userOption);
+
+
+
+        }
+        console.log(res);
       })
-      .catch(function(error){
-        console.log(error);
-      })
+
     },
 }
 </script>
@@ -254,16 +368,22 @@ export default {
   .graph{
     display: flex;
     width: 100%;
-
-    :nth-child(1){
-      width: 49%;
-      border: 1px skyblue solid;
+    .userecharts{
+      width: 50%;
     }
-    :nth-child(2){
+    .userecharts2{
       width: 49%;
-      margin-left: 20px;
-      border: 1px green solid;
+      margin-left: 2px;
     }
+    // :nth-child(1){
+    //   width: 49%;
+    //   border: 1px skyblue solid;
+    // }
+    // :nth-child(2){
+    //   width: 49%;
+    //   margin-left: 20px;
+    //   border: 1px green solid;
+    // }
   }
 }
 
