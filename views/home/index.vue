@@ -48,9 +48,11 @@
 
         <div class="graph">
           <el-card style="height:260px" class="userecharts">
-            <div style="height:240px" ref="userecharts"></div>
+            <div style="height:240px" ref="userecharts" class="ecrimg"></div>
           </el-card>
-          <el-card style="height:260px" class="userecharts2"></el-card>
+          <el-card style="height:260px" class="userecharts2">
+            <div style="height:240px" ref="piecharts" class="ecrimg"></div>
+          </el-card>
         </div>
 
       </div>
@@ -202,10 +204,8 @@ export default {
           const E = echarts.init(this.$refs.echarts);
           // 拿到节点后，传入配置进行绘图
           E.setOption(option);
-
-
+          
           // 这个地方画用户图
-
           // 这是用户图的数据图配置
           const userOption = {
             legend:{
@@ -247,22 +247,52 @@ export default {
             series:[
               {
                 name:"新增用户",
+                type: 'bar',
                 data:data.userData.map(item => item.new)
               },
               {
                 name:"活跃用户",
+                type: 'bar',
                 data:data.userData.map(item => item.active)
               }
             ]
           }
-
           // 获取dom元素
           const U = echarts.init(this.$refs.userecharts)
           // 拿到节点后，传入配置进行绘图
           U.setOption(userOption);
 
 
-
+          // 这个地方画饼图
+          const bingOption = {
+            tooltip:{
+              trigger: "item"
+            },
+            color:[
+              "#0f78f4",
+              "#dd536b",
+              "#9462e5",
+              "#a6a6a6",
+              "#e1bb22",
+              "#39c362",
+              "#3ed1cf",
+            ],
+            series:[
+              {
+                data:data.videoData,
+                type:"pie",
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+                }
+              },
+            ]
+          }
+          const P = echarts.init(this.$refs.piecharts)
+          P.setOption(bingOption);
         }
         console.log(res);
       })
@@ -363,11 +393,12 @@ export default {
   flex-wrap:wrap;
   .ecr{
     width: 100%;
-    border: 1px red solid;
+    // border: 1px red solid;
   }
   .graph{
     display: flex;
     width: 100%;
+    // justify-content: center;
     .userecharts{
       width: 50%;
     }
