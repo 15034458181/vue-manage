@@ -7,6 +7,9 @@ import router from '../router/index'
 import http from 'axios'
 // 引入mock
 import "../api/mock.js"
+// 引入vuex
+import store from '../store'
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
@@ -15,5 +18,6 @@ Vue.prototype.$http = http
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')

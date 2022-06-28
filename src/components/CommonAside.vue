@@ -20,8 +20,8 @@
                 <span slot="title">{{item.label}}</span>
             </template>
 
-            <el-menu-item-group v-for="Citem in item.children" :key="Citem.path" @click="clickRoute(Citem)"><!-- 好像不起作用 --> 
-                <el-menu-item :index="Citem.path">{{Citem.label}}</el-menu-item>
+            <el-menu-item-group v-for="Citem in item.children" :key="Citem.path" ><!-- 好像不起作用 --> 
+                <el-menu-item :index="Citem.path" @click="clickRoute(Citem)">{{Citem.label}}</el-menu-item><!--点击绑定事件得配置到这个里面 -->  
             </el-menu-item-group>
 
         </el-submenu>
@@ -99,7 +99,7 @@
         this.$router.push({
             name:item.name
         })
-
+        this.$store.commit('selectMenu',item)
       }
     }
   }

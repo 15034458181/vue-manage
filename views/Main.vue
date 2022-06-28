@@ -14,6 +14,7 @@
       
       <!-- 这是主要区域 -->
       <el-main>
+        <Tag/>
         <router-view></router-view>
       </el-main>
       
@@ -25,16 +26,18 @@
 <script>
 import CommonAside from "../src/components/CommonAside.vue"
 import Header from "../src/components/Header.vue"
+import Tag from "../src/components/Tag.vue"
 export default {
     name:'MyHome',
     data() {
         return {
-            
+
         }
     },
     components:{
       CommonAside,
-      Header
+      Header,
+      Tag
     }
 }
 </script>

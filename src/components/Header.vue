@@ -1,7 +1,9 @@
 <template>
     <div class="l-content">
-        <el-button type="info" icon="el-icon-d-arrow-left" size="small" class="button1"></el-button> 
-        <h3 style="color:#fff">首页</h3>
+        <el-button type="info" icon="el-icon-d-arrow-left" size="small" class="button1" @click="handleMenu()" ></el-button> 
+        <el-breadcrumb separator="/" class="mianbao">
+            <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path:item.path  }">{{item.label}}</el-breadcrumb-item>
+        </el-breadcrumb>
         
         <el-dropdown trigger="click" size="mini" class="userlogo">
             <span>
@@ -16,12 +18,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name:"Header",
     data() {
         return {
-            
+
         }
+    },
+    methods:{
+        handleMenu(){
+            this.$store.commit('collapseMenu')
+        }
+    },
+    computed:{
+        ...mapState({
+            tags:state => state.tab.tabsList
+        })
+
     },
 
 }
@@ -39,12 +53,18 @@ export default {
         .userlogo{
             float: right;
         }
+        .mianbao{
+            width: 500px;
+            float: left;
+            font-size: 26px;
+        }
     }
     h3{
         display: inline-block;
         margin-left: 20px;
     }
     .imglogo{
+        float: right;
         height: 40px;
         width: 40px; 
         border-radius: 50%;
