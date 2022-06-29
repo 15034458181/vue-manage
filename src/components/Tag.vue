@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="tabs">
     <el-tag size="small" v-for="(tag,index) in tags" :key="tag.name" :closable="tag.name !== 'home'"
-     :effect="$route.name===tag.name ? light:dark "
+     :effect="$router.name === tag.name ? 'light':'dark'"
       @click="changeMenu(tag)" 
       @close="handerClose(tag,index)">{{tag.label}}</el-tag>
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 // import router from 'router'
-import {mapState} from "vuex"
+import {mapState,mapMutations} from "vuex"
 export default {
     name:"Tag",
     data() {
@@ -24,18 +24,41 @@ export default {
         })
     },
     methods: {
-        changeMenu(){
-            this.$router.push({
-                name:tag.name
-            })
+        changeMenu(tag){
+            if (this.$route.name !== tag.name) {
+                this.$router.push({ name:tag.name })
+            }
         },
-        handerClose(){
-            
+        handerClose(tag,index){
+
+           const length =  this.tags.length -1
+        //    如果删除时，路由的name和当前点击的标签的name不一致，说明当前页面和要删除的标签不对应，此时直接删标签就行
+           if(tag.name !== this.$router.name){
+                return 
+           }
+        //    只有最右边的标签才会得到下面这个条件，length = index  4 4，往左进行移动
+           if(length === index){
+                this.$$router.push({
+                    name:this.tags[index - 1].name
+                })
+           }else{
+                // 向右跳转，为啥不用下面的加1呢，因为已经减了一个了，index中的数实际已经少了一个
+                this.$$router.push({
+                    // name:this.tags[index + 1].name
+                     name:this.tags[index].name
+                })
+           }
         }
     },
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+    .tabs{
+        padding: 20px;
+        .el-tag{
+            margin-right: 15px;
+            cursor: pointer;
+        }
+    }
 </style>

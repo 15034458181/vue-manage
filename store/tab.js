@@ -3,7 +3,7 @@ export default{
         isCollapse:false,
         tabsList:[
             {
-                path:"/",
+                path:"/home",
                 name:"home",
                 label:"首页",
                 icon:"home"
@@ -25,6 +25,13 @@ export default{
             }else{
                 state.currentMenu = null
             }
+        },
+        // 声明这个是为了使tab栏能够删除上面的数据
+        closeTag(state,val){
+            // 在tabList中查找与tab传来的数据中name相对应的数据的索引下标，！！！findIndex返回符合条件的数组下标
+            const res = state.tabsList.findIndex(item => item.name === val.name)
+            state.tabsList.splice(res,1)
         }
+        
     }
 }
