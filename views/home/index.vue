@@ -360,6 +360,8 @@ export default {
     width: 31%;
     height: 40%;
     margin: 10px;
+    // 占据空间的比例，我设置为30%
+    flex-basis: 30%;
     // overflow: hidden;
     .icon{
       position: absolute;
