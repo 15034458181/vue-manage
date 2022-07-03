@@ -15,7 +15,7 @@ export default{
                                 name:'home',
                                 label:'首页',
                                 icon:'s-home',
-                                url:'Home/index'
+                                url:'home/index'
                             },
                             {
                                 path:'/mall',
@@ -40,14 +40,14 @@ export default{
                                         name:'page1',
                                         label:'页面1',
                                         icon:'setting',
-                                        url:'other/PageOne'
+                                        url:'other/pageOne.vue'
                                     },
                                     {
                                         path:'/page2',
                                         name:'page2',
                                         label:'页面2',
                                         icon:'setting',
-                                        url:'other/PageTwo'
+                                        url:'other/pageTwo.vue'
                                     },
                                 ]
                             }
@@ -56,7 +56,7 @@ export default{
                         message:"获取成功"
                 }
             }
-        }else if(username === "anhongbo" && password === "ahb90341"){
+        }else if(username === "aaaaaaa" && password === "aaaaaaa"){
             return {
                 code:20000,
                 data:{
@@ -66,7 +66,7 @@ export default{
                             name:'home',
                             label:'首页',
                             icon:'s-home',
-                            url:'Home/index'
+                            url:'home/index'
                         },
                         {
                             path:'/mall',

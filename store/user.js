@@ -7,6 +7,7 @@ export default{
         setToken(state,value){
             state.token = value 
             // 写入Cookie，传入两个参数，1.定义的cookie名称，2.保存的值
+            console.log("设置了新的token",state.token);
             Cookie.set("token",value)
         },
         cleraToken(state){

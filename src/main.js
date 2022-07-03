@@ -25,14 +25,23 @@ router.beforeEach((to,form,next) =>{
   if(!token && to.name !== 'login'){
     // 拦截跳转，让用户待在登录页
     next({name:'login'})
-  }else{
+  }else if(token && to.name === "login"){
+    next({name:'home'})
+  }
+  else{
     // 如果成功登录，跳转下一步
     next()
   }
 })
 
+
+
+
 new Vue({
   router,
   store,
   render: h => h(App),
+  created(){
+    store.commit("addMenu",router)
+  }
 }).$mount('#app')

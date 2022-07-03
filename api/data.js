@@ -13,3 +13,11 @@ export const getData = ()=>{
         url:"/home/getData"
     })
 }
+
+// export const getMenu = (params) =>{
+//     return axios.request({
+//         url:'/permission/getMenu',
+//         method:"post",
+//         data:param
+//     })
+// }
